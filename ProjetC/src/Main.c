@@ -3,5 +3,6 @@
 
 int main (void)
 {
+	aaaa;
 	return 0;
 }
