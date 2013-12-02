@@ -3,6 +3,6 @@
 
 int main (void)
 {
-	blaaaaaaaaa;
+	kkkkkk
 	return 0;
 }
