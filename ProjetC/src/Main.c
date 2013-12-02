@@ -3,6 +3,6 @@
 
 int main (void)
 {
-	kkkkkk
+	hello;
 	return 0;
 }
