@@ -4,5 +4,6 @@
 int main (void)
 {
 	test;
+	test3;
 	return 0;
 }
