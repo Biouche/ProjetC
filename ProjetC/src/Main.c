@@ -5,5 +5,4 @@ int main (void)
 {
 kkk
 jjj
-jjj
 }
