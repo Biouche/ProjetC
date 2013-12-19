@@ -9,7 +9,7 @@ int main (void)
 	test4;
 
 	hih
-
+sss
 	fff
 	ok
 	return 0;
