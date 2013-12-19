@@ -3,19 +3,5 @@
 
 int main (void)
 {
-	test;
-	test3;
-	hooolo;
-	test4;
-kkkss
-	hih
-sohph
-	fff
-	ok
-	return 0;
-sssvvv
-ssshhhS
-ssshhhS
-	ssj
-	mqsdlk
+
 }
