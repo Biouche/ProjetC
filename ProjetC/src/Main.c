@@ -3,9 +3,5 @@
 
 int main (void)
 {
-fmljfml
-ùmplùml
-jjj
-ùmplù
-ùmplù
+
 }
