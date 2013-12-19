@@ -3,7 +3,5 @@
 
 int main (void)
 {
-yyui
-kkkk
 
 }
