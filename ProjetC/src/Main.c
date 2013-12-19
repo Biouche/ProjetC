@@ -7,5 +7,9 @@ int main (void)
 	test3;
 	hooolo;
 	test4;
+
+
+
+	ok
 	return 0;
 }
