@@ -3,6 +3,5 @@
 
 int main (void)
 {
-xxx
-sss
+
 }
