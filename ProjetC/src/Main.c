@@ -10,6 +10,7 @@ int main (void)
 
 	hih
 
+	fff
 	ok
 	return 0;
 }
