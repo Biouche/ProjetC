@@ -9,6 +9,6 @@
 #ifndef FILEMANIP_H_
 #define FILEMANIP_H_
 
-
+int CreateTable (char*);
 
 #endif /* FILEMANIP_H_ */

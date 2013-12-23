@@ -9,6 +9,8 @@
 #ifndef CONSTANTS_H_
 #define CONSTANTS_H_
 
+//Définition des constantes
 
+#define TAILLE_NOM_TABLE 100
 
 #endif /* CONSTANTS_H_ */
