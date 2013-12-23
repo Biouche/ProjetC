@@ -25,8 +25,8 @@ void IHM(void)
 	{
 		buffer=strtok(NULL," ");
 		buffer=strtok(NULL," ");
-			//recuperation du nom de la table dans le buffer
-		//CreateTable(buffer);
+		//recuperation du nom de la table dans le buffer
+		CreateTable(buffer);
 	}
 	if(strcmp(buffer,"DROP")==0)
 	{

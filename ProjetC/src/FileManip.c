@@ -18,6 +18,7 @@ int CreateTable (char* request)
 	char cheminTable[TAILLE_NOM_TABLE];
 	memset(cheminTable,0,sizeof(char)*TAILLE_NOM_TABLE);
 	strcpy(cheminTable, "./Tables/");
+	strcat(request,".dbf");
 	strcat (cheminTable,request);
 
 	FILE * ficTable = NULL;
