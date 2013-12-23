@@ -9,6 +9,7 @@
 #include <IHM.h>
 #include <Constants.h>
 #include <stdlib.h>
+#include <FileManip.h>
 
 
 void IHM(void)
