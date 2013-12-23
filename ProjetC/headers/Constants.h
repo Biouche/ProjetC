@@ -11,6 +11,7 @@
 
 #define TAILLE_REQUEST 300
 //Définition des constantes
+//Définition des constantes
 
 #define TAILLE_NOM_TABLE 100
 #endif /* CONSTANTS_H_ */
