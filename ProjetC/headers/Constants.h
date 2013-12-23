@@ -9,7 +9,6 @@
 #ifndef CONSTANTS_H_
 #define CONSTANTS_H_
 
-
 //Définition des constantes
 
 #define TAILLE_REQUEST 300
