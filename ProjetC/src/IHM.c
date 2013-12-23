@@ -10,6 +10,7 @@
 #include <Constants.h>
 #include <stdlib.h>
 
+
 void IHM(void)
 {
 	char request[TAILLE_REQUEST];
