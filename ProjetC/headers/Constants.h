@@ -9,9 +9,11 @@
 #ifndef CONSTANTS_H_
 #define CONSTANTS_H_
 
-#define TAILLE_REQUEST 300
-//Définition des constantes
+
 //Définition des constantes
 
+#define TAILLE_REQUEST 300
 #define TAILLE_NOM_TABLE 100
+#define DEFAULT_LENGTH_HEADER 22
+
 #endif /* CONSTANTS_H_ */

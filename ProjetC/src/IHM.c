@@ -8,13 +8,6 @@
 #include <string.h>
 #include <IHM.h>
 
-void IHM(void)
-{
-	char
-}
 
-void Help(void)
-
-void PrintError(int)
 
 
