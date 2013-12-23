@@ -8,6 +8,9 @@
 #ifndef IHM_H_
 #define IHM_H_
 
-
+void IHM();
+void Help();
+void PrintError(int);
 
 #endif /* IHM_H_ */
+
