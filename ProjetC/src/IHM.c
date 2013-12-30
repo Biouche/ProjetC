@@ -10,7 +10,7 @@
 #include <Constants.h>
 #include <stdlib.h>
 #include <FileManip.h>
-
+#include <ParseRequest.h>
 
 
 void IHM(void)
@@ -46,7 +46,7 @@ void IHM(void)
 		if(strcmp(buffer,"TABLE")==0)
 		{
 		buffer=strtok(NULL," ");
-		errorCode=DropTable(buffer);
+		//errorCode=DropTable(buffer);
 		}
 		else
 		{
@@ -71,7 +71,7 @@ void IHM(void)
 		buffer=strtok(NULL," ");
 		strcat(requestSelect,buffer);
 		//printf("requestSelect:<%s>\n",requestSelect);
-		errorCode=Select(resquetSelect);
+		//errorCode=Select(resquetSelect);
 	}
 	else if(strcmp(buffer,"INSERT")==0)
 	{
@@ -85,7 +85,7 @@ void IHM(void)
 		printf("Erreur de saisie. Cf HELP");
 		}
 		//recuperation du nom de la table dans le buffer
-		errorCode=InsertInto(buffer);
+		//errorCode=InsertInto(buffer);
 	}
 	else if(strcmp(buffer,"DELETE")==0)
 	{
@@ -103,7 +103,7 @@ void IHM(void)
 		}
 		buffer=strtok(NULL," ");
 		strcat(requestSelect,buffer);
-		errorCode=Delete(resquetSelect);
+		//errorCode=Delete(resquetSelect);
 	}
 	else if(strcmp(buffer,"INDEX")==0)
 	{
@@ -128,7 +128,7 @@ void IHM(void)
 		strcat(requestSelect," ");
 		buffer=strtok(NULL," ");
 		strcat(requestSelect,buffer);
-		errorCode=Update(requestSelect);
+		//errorCode=Update(requestSelect);
 	}
 	else if(strcmp(buffer,"ALTER")==0)
 	{
@@ -150,7 +150,7 @@ void IHM(void)
 			buffer=strtok(NULL," ");
 			strcat(requestSelect,buffer);
 			errorCode=AlterTable(requestSelect);
-			//printf("requestSelect:<%s>\n",requestSelect);
+			PrintError(errorCode,2);
 		}
 		else
 		{
@@ -238,19 +238,9 @@ void Help(void)
 
 void PrintError(int errorCode,int fonction)
 {
-	int errorCode=0;
-	int fonction=0;
-	if(fonction==1)
-	{
-		switch(errorCode)
-		{
-			case 0:
-			case 1:
-			case-1:
-		}
-	}
 
 
+	printf ("Code erreur : %d", errorCode);
 
 
 }

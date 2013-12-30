@@ -15,8 +15,8 @@
 //Arguments : request = nom de la table
 int CreateTable (char* request)
 {
-	char cheminTable[TAILLE_NOM_TABLE];
-	memset(cheminTable,0,sizeof(char)*TAILLE_NOM_TABLE);
+	char cheminTable[TAILLE_CHEMIN_TABLE];
+	memset(cheminTable,0,sizeof(char)*TAILLE_CHEMIN_TABLE);
 	strcpy(cheminTable, "./Tables/");
 	strcat(request,".dbf");
 	strcat (cheminTable,request);
@@ -34,7 +34,7 @@ int CreateTable (char* request)
 	time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
 	//Ajout du header de base dans le fichier
-	fprintf(ficTable,"%d%d%d|--0|%d|-0|--0|",tm.tm_year-100,tm.tm_mon+1,tm.tm_mday,DEFAULT_LENGTH_HEADER);
+	fprintf(ficTable,"%d%d%d|000|%d|00|000|",tm.tm_year-100,tm.tm_mon+1,tm.tm_mday,DEFAULT_LENGTH_HEADER);
 
 	//Fermuture du fichier
 	fclose (ficTable);
@@ -44,4 +44,16 @@ int CreateTable (char* request)
 		return 0;
 	fclose (ficTable);
 	return 1;
+}
+
+
+int ExecuteAddColumn(char* nomTable,char* nomCol,char* type,int taille)
+{
+	FILE * ficTable = NULL;
+	printf ("nomTable : %s | nomCOl : %s | type : %s | taille : %d", nomTable,nomCol,type,taille);
+	//Test de l'existence de la table
+	if ((ficTable=fopen(nomTable,"r+"))==NULL)
+		return -1;
+
+	return 0;
 }
