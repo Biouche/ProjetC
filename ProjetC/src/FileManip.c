@@ -49,6 +49,7 @@ int CreateTable (char* request)
 //Arguments : request = nom de la table
 int DropTable (char* request)
 {
+
 	char cheminTable[TAILLE_NOM_TABLE];
 	memset(cheminTable,0,sizeof(char)*TAILLE_NOM_TABLE);
 	strcpy(cheminTable, "./Tables/");

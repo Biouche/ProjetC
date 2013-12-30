@@ -41,8 +41,10 @@ void IHM(void)
 		//recuperation du nom de la table dans le buffer
 
 	}
+
 	else if(strcmp(buffer,"DROP")==0)
 	{
+	
 		buffer=strtok(NULL," ");
 		if(strcmp(buffer,"TABLE")==0)
 		{
