@@ -13,8 +13,14 @@
 //Définition des constantes
 
 #define TAILLE_REQUEST 300
-#define TAILLE_NOM_TABLE 100
+#define TAILLE_CHEMIN_TABLE 100
+#define TAILLE_NOM_TABLE 50
 #define TAILLE_BUFFER 50
 #define DEFAULT_LENGTH_HEADER 22
+#define TAILLE_NOM_COL 31
+#define TAILLE_INT 4
+#define TAILLE_NUM 8
+#define TAILLE_BOOL 1
+#define TAILLE_CHAR 50
 
 #endif /* CONSTANTS_H_ */

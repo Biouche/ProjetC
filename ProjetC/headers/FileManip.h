@@ -9,6 +9,10 @@
 #ifndef FILEMANIP_H_
 #define FILEMANIP_H_
 
-int CreateTable (char*);
+
+int CreateTable(char*);
+int ExecuteAddColumn(char*,char*,char*,int);
+int DropTable (char*);
+int InsertInto (char *);
 
 #endif /* FILEMANIP_H_ */

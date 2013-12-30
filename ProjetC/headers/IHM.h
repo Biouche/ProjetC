@@ -10,7 +10,7 @@
 
 void IHM();
 void Help();
-void PrintError(int);
+void PrintError(int,int);
 
 #endif /* IHM_H_ */
 
