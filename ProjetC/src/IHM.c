@@ -52,10 +52,14 @@ void IHM(void)
 		{
 		buffer=strtok(NULL," ");
 		//errorCode=DropTable(buffer);
+<<<<<<< HEAD
+		PrintError(errorCode,2);
+=======
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 		}
 		else
 		{
-			printf("Erreur de saisie. Cf HELP");
+			printf("Erreur de saisie. Cf HELP\n\n");
 		}
 		//recuperation du nom de la table dans le buffer
 	}
@@ -77,6 +81,10 @@ void IHM(void)
 		strcat(requestSelect,buffer);
 		//printf("requestSelect:<%s>\n",requestSelect);
 		//errorCode=Select(resquetSelect);
+<<<<<<< HEAD
+		//PrintError(errorCode,3);
+=======
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 	}
 	else if(strcmp(buffer,"INSERT")==0)
 	{
@@ -84,13 +92,23 @@ void IHM(void)
 		if(strcmp(buffer,"INTO")==0)
 		{
 		buffer=strtok(NULL," ");
+		//errorCode=InsertInto(buffer);
+		//PrintError(errorCode,4);
 		}
 		else
 		{
-		printf("Erreur de saisie. Cf HELP");
+		printf("Erreur de saisie. Cf HELP\n\n");
 		}
 		//recuperation du nom de la table dans le buffer
+<<<<<<< HEAD
 		errorCode=InsertInto(buffer);
+=======
+<<<<<<< HEAD
+
+=======
+		//errorCode=InsertInto(buffer);
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 	}
 	else if(strcmp(buffer,"DELETE")==0)
 	{
@@ -109,6 +127,10 @@ void IHM(void)
 		buffer=strtok(NULL," ");
 		strcat(requestSelect,buffer);
 		//errorCode=Delete(resquetSelect);
+<<<<<<< HEAD
+		//PrintError(errorCode,5);
+=======
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 	}
 	else if(strcmp(buffer,"INDEX")==0)
 	{
@@ -134,7 +156,11 @@ void IHM(void)
 		buffer=strtok(NULL," ");
 		strcat(requestSelect,buffer);
 		//errorCode=Update(requestSelect);
+<<<<<<< HEAD
+		//PrintError(errorCode,7);
+=======
 		//errorCode=Update(requestSelect);
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 	}
 	else if(strcmp(buffer,"ALTER")==0)
 	{
@@ -155,12 +181,18 @@ void IHM(void)
 			}
 			buffer=strtok(NULL," ");
 			strcat(requestSelect,buffer);
+<<<<<<< HEAD
+			//errorCode=AlterTable(requestSelect);
+			//PrintError(errorCode,8);
+			//printf("requestSelect:<%s>\n",requestSelect);
+=======
 			errorCode=AlterTable(requestSelect);
 			PrintError(errorCode,2);
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 		}
 		else
 		{
-			printf("Erreur de saisie. Cf HELP");
+			printf("Erreur de saisie. Cf HELP\n\n");
 		}
 	}
 	else if(strcmp(buffer,"HELP")==0)
@@ -169,8 +201,10 @@ void IHM(void)
 	}
 	else
 	{
-		printf("Erreur de saisie. Cf HELP");
+		printf("Erreur de saisie. Cf HELP\n\n");
 	}
+	//getchar();
+	IHM();
 }
 void Help(void)
 {
@@ -244,10 +278,108 @@ void Help(void)
 
 void PrintError(int errorCode,int fonction)
 {
+<<<<<<< HEAD
+	if(fonction==1)//CREATE
+	{
+		switch(errorCode)
+		{
+			case 1:printf("La création de la table s'est bien déroulée\n\n");
+				   break;
+			case 0:printf("L'ouverture du fichier a échoué\n\n");
+				   break;
+			case -1:printf("Le nom de table existe déjà\n\n");
+					break;
+			default:break;
+		}
+	}
+	else if(fonction==2)//DROP
+	{
+		switch(errorCode)
+		{
+			case 1:printf("La table a bien été supprimée\n\n");
+							   break;
+			case 0:printf("La table n’a pas été supprimée\n\n");
+							   break;
+			case -1:printf("La table à supprimer n’existe pas\n\n");
+								break;
+			default:break;
+		}
+	}
+	else if(fonction==3)//SELECT
+	{
+		switch(errorCode)
+		{
+			case -3:printf("La comparaison est impossible\n\n");
+							   break;
+			case -2:printf("Le nom de colonne est inexistant\n\n");
+							   break;
+			case -1:printf("La table est inexistante\n\n");
+								break;
+			default:break;
+		}
+	}
+	else if(fonction==4)//INSERT
+	{
+		switch(errorCode)
+		{
+			case 0:printf("La table est inexistante\n\n");
+							   break;
+			case 1:printf("L'INSERT s'est executée avec succés\n\n");
+							   break;
+			default:break;
+		}
+	}
+	else if(fonction==5)//DELETE
+	{
+		switch(errorCode)
+		{
+			case -1:printf("La table est inexistante\n\n");
+							   break;
+			case -2:printf("Le nom de colonne est inexistant\n\n");
+							   break;
+			case -3:printf("La comparaison est impossible\n\n");
+										   break;
+			case -4:printf("Aucun enregistrement n'a été supprimé\n\n");
+										   break;
+			default:break;
+		}
+	}
+	//il faudra ajouter le else if(fonction==8) pour la requete INDEX
+	else if(fonction==7)//UPDATE
+	{
+		switch(errorCode)
+		{
+			case -1:printf("La table est inexistante\n");
+							   break;
+			case -2:printf("Le nom de colonne est inexistant\n");
+							   break;
+			case -3:printf("La comparaison est impossible\n");
+										   break;
+			default:break;
+		}
+	}
+	else if(fonction==8)//ALTER
+	{
+		switch(errorCode)
+		{
+			case -1:printf("La table est inexistante\n");
+							   break;
+			case -2:printf("Le nom de colonne est inexistant\n");
+							   break;
+			case -3:printf("Le nombre maximum de colonnes est atteint (10)\n");
+										   break;
+			case -4:printf("Le nom de colonne choisi dépasse les 31 caractères autorisés\n");
+													   break;
+			default:break;
+		}
+	}
+=======
 
 	printf ("Code erreur : %d", errorCode);
 
 
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 }
+
 
 
