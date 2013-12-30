@@ -26,7 +26,6 @@ int CreateTable (char* request)
 	//Test de l'existence du fichier
 	if ((ficTable=fopen(cheminTable,"r+"))!=NULL)
 		return -1;
-
 	//Création du nouveau fichier
 	if ((ficTable=fopen(cheminTable,"w+"))==NULL)
 		return 0;

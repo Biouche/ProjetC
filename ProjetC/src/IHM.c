@@ -15,9 +15,11 @@
 
 void IHM(void)
 {
-	int errorCode=0;
+	int errorCode=0;//pour stocker la valeur de retour des fonctions
 	char request[TAILLE_REQUEST];
 	memset(request,0,sizeof(char)*TAILLE_REQUEST);
+	printf("\t\t**********ABC DataBaseMaker**********\n\n");
+	printf(">");
 	gets(request);
 	//recuperation de la requete entiere
 	char*buffer=NULL;
@@ -46,11 +48,12 @@ void IHM(void)
 		if(strcmp(buffer,"TABLE")==0)
 		{
 		buffer=strtok(NULL," ");
-		errorCode=DropTable(buffer);
+		//errorCode=DropTable(buffer);
+		PrintError(errorCode,2);
 		}
 		else
 		{
-			printf("Erreur de saisie. Cf HELP");
+			printf("Erreur de saisie. Cf HELP\n\n");
 		}
 		//recuperation du nom de la table dans le buffer
 	}
@@ -71,7 +74,8 @@ void IHM(void)
 		buffer=strtok(NULL," ");
 		strcat(requestSelect,buffer);
 		//printf("requestSelect:<%s>\n",requestSelect);
-		errorCode=Select(resquetSelect);
+		//errorCode=Select(resquetSelect);
+		//PrintError(errorCode,3);
 	}
 	else if(strcmp(buffer,"INSERT")==0)
 	{
@@ -79,13 +83,15 @@ void IHM(void)
 		if(strcmp(buffer,"INTO")==0)
 		{
 		buffer=strtok(NULL," ");
+		//errorCode=InsertInto(buffer);
+		//PrintError(errorCode,4);
 		}
 		else
 		{
-		printf("Erreur de saisie. Cf HELP");
+		printf("Erreur de saisie. Cf HELP\n\n");
 		}
 		//recuperation du nom de la table dans le buffer
-		errorCode=InsertInto(buffer);
+
 	}
 	else if(strcmp(buffer,"DELETE")==0)
 	{
@@ -103,7 +109,8 @@ void IHM(void)
 		}
 		buffer=strtok(NULL," ");
 		strcat(requestSelect,buffer);
-		errorCode=Delete(resquetSelect);
+		//errorCode=Delete(resquetSelect);
+		//PrintError(errorCode,5);
 	}
 	else if(strcmp(buffer,"INDEX")==0)
 	{
@@ -128,7 +135,8 @@ void IHM(void)
 		strcat(requestSelect," ");
 		buffer=strtok(NULL," ");
 		strcat(requestSelect,buffer);
-		errorCode=Update(requestSelect);
+		//errorCode=Update(requestSelect);
+		//PrintError(errorCode,7);
 	}
 	else if(strcmp(buffer,"ALTER")==0)
 	{
@@ -149,12 +157,13 @@ void IHM(void)
 			}
 			buffer=strtok(NULL," ");
 			strcat(requestSelect,buffer);
-			errorCode=AlterTable(requestSelect);
+			//errorCode=AlterTable(requestSelect);
+			//PrintError(errorCode,8);
 			//printf("requestSelect:<%s>\n",requestSelect);
 		}
 		else
 		{
-			printf("Erreur de saisie. Cf HELP");
+			printf("Erreur de saisie. Cf HELP\n\n");
 		}
 	}
 	else if(strcmp(buffer,"HELP")==0)
@@ -163,8 +172,10 @@ void IHM(void)
 	}
 	else
 	{
-		printf("Erreur de saisie. Cf HELP");
+		printf("Erreur de saisie. Cf HELP\n\n");
 	}
+	//getchar();
+	IHM();
 }
 void Help(void)
 {
@@ -238,21 +249,101 @@ void Help(void)
 
 void PrintError(int errorCode,int fonction)
 {
-	int errorCode=0;
-	int fonction=0;
-	if(fonction==1)
+	if(fonction==1)//CREATE
 	{
 		switch(errorCode)
 		{
-			case 0:
-			case 1:
-			case-1:
+			case 1:printf("La création de la table s'est bien déroulée\n\n");
+				   break;
+			case 0:printf("L'ouverture du fichier a échoué\n\n");
+				   break;
+			case -1:printf("Le nom de table existe déjà\n\n");
+					break;
+			default:break;
 		}
 	}
-
-
-
-
+	else if(fonction==2)//DROP
+	{
+		switch(errorCode)
+		{
+			case 1:printf("La table a bien été supprimée\n\n");
+							   break;
+			case 0:printf("La table n’a pas été supprimée\n\n");
+							   break;
+			case -1:printf("La table à supprimer n’existe pas\n\n");
+								break;
+			default:break;
+		}
+	}
+	else if(fonction==3)//SELECT
+	{
+		switch(errorCode)
+		{
+			case -3:printf("La comparaison est impossible\n\n");
+							   break;
+			case -2:printf("Le nom de colonne est inexistant\n\n");
+							   break;
+			case -1:printf("La table est inexistante\n\n");
+								break;
+			default:break;
+		}
+	}
+	else if(fonction==4)//INSERT
+	{
+		switch(errorCode)
+		{
+			case 0:printf("La table est inexistante\n\n");
+							   break;
+			case 1:printf("L'INSERT s'est executée avec succés\n\n");
+							   break;
+			default:break;
+		}
+	}
+	else if(fonction==5)//DELETE
+	{
+		switch(errorCode)
+		{
+			case -1:printf("La table est inexistante\n\n");
+							   break;
+			case -2:printf("Le nom de colonne est inexistant\n\n");
+							   break;
+			case -3:printf("La comparaison est impossible\n\n");
+										   break;
+			case -4:printf("Aucun enregistrement n'a été supprimé\n\n");
+										   break;
+			default:break;
+		}
+	}
+	//il faudra ajouter le else if(fonction==8) pour la requete INDEX
+	else if(fonction==7)//UPDATE
+	{
+		switch(errorCode)
+		{
+			case -1:printf("La table est inexistante\n");
+							   break;
+			case -2:printf("Le nom de colonne est inexistant\n");
+							   break;
+			case -3:printf("La comparaison est impossible\n");
+										   break;
+			default:break;
+		}
+	}
+	else if(fonction==8)//ALTER
+	{
+		switch(errorCode)
+		{
+			case -1:printf("La table est inexistante\n");
+							   break;
+			case -2:printf("Le nom de colonne est inexistant\n");
+							   break;
+			case -3:printf("Le nombre maximum de colonnes est atteint (10)\n");
+										   break;
+			case -4:printf("Le nom de colonne choisi dépasse les 31 caractères autorisés\n");
+													   break;
+			default:break;
+		}
+	}
 }
+
 
 
