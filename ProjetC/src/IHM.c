@@ -15,9 +15,11 @@
 
 void IHM(void)
 {
-	int errorCode=0;
+	int errorCode=0;//pour stocker la valeur de retour des fonctions
 	char request[TAILLE_REQUEST];
 	memset(request,0,sizeof(char)*TAILLE_REQUEST);
+	printf("\t\t**********ABC DataBaseMaker**********\n\n");
+	printf(">");
 	gets(request);
 	//recuperation de la requete entiere
 	char*buffer=NULL;
@@ -88,7 +90,7 @@ void IHM(void)
 		printf("Erreur de saisie. Cf HELP");
 		}
 		//recuperation du nom de la table dans le buffer
-		//errorCode=InsertInto(buffer);
+		errorCode=InsertInto(buffer);
 	}
 	else if(strcmp(buffer,"DELETE")==0)
 	{

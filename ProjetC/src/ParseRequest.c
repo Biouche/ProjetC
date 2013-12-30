@@ -36,7 +36,7 @@ int AlterTable (char * request)
 	for(i=0;i<2;i++)
 	{
 		buffer=strtok(NULL," ");
-		printf("buffer[%d]:<%s>\n",i,buffer);
+		//printf("buffer[%d]:<%s>\n",i,buffer);
 		strcat(requestAlter,buffer);
 		//printf("requestSelect[%d]:<%s>\n",i,requestSelect);
 		strcat(requestAlter," ");
