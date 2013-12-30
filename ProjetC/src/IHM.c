@@ -10,7 +10,7 @@
 #include <Constants.h>
 #include <stdlib.h>
 #include <FileManip.h>
-
+#include <ParseRequest.h>
 
 
 void IHM(void)
@@ -41,15 +41,21 @@ void IHM(void)
 			printf("Erreur de saisie. Cf HELP");
 		}
 		//recuperation du nom de la table dans le buffer
+
 	}
+
 	else if(strcmp(buffer,"DROP")==0)
 	{
+	
 		buffer=strtok(NULL," ");
 		if(strcmp(buffer,"TABLE")==0)
 		{
 		buffer=strtok(NULL," ");
 		//errorCode=DropTable(buffer);
+<<<<<<< HEAD
 		PrintError(errorCode,2);
+=======
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 		}
 		else
 		{
@@ -75,7 +81,10 @@ void IHM(void)
 		strcat(requestSelect,buffer);
 		//printf("requestSelect:<%s>\n",requestSelect);
 		//errorCode=Select(resquetSelect);
+<<<<<<< HEAD
 		//PrintError(errorCode,3);
+=======
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 	}
 	else if(strcmp(buffer,"INSERT")==0)
 	{
@@ -91,7 +100,11 @@ void IHM(void)
 		printf("Erreur de saisie. Cf HELP\n\n");
 		}
 		//recuperation du nom de la table dans le buffer
+<<<<<<< HEAD
 
+=======
+		//errorCode=InsertInto(buffer);
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 	}
 	else if(strcmp(buffer,"DELETE")==0)
 	{
@@ -110,7 +123,10 @@ void IHM(void)
 		buffer=strtok(NULL," ");
 		strcat(requestSelect,buffer);
 		//errorCode=Delete(resquetSelect);
+<<<<<<< HEAD
 		//PrintError(errorCode,5);
+=======
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 	}
 	else if(strcmp(buffer,"INDEX")==0)
 	{
@@ -136,7 +152,11 @@ void IHM(void)
 		buffer=strtok(NULL," ");
 		strcat(requestSelect,buffer);
 		//errorCode=Update(requestSelect);
+<<<<<<< HEAD
 		//PrintError(errorCode,7);
+=======
+		//errorCode=Update(requestSelect);
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 	}
 	else if(strcmp(buffer,"ALTER")==0)
 	{
@@ -157,9 +177,14 @@ void IHM(void)
 			}
 			buffer=strtok(NULL," ");
 			strcat(requestSelect,buffer);
+<<<<<<< HEAD
 			//errorCode=AlterTable(requestSelect);
 			//PrintError(errorCode,8);
 			//printf("requestSelect:<%s>\n",requestSelect);
+=======
+			errorCode=AlterTable(requestSelect);
+			PrintError(errorCode,2);
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 		}
 		else
 		{
@@ -249,6 +274,7 @@ void Help(void)
 
 void PrintError(int errorCode,int fonction)
 {
+<<<<<<< HEAD
 	if(fonction==1)//CREATE
 	{
 		switch(errorCode)
@@ -343,6 +369,12 @@ void PrintError(int errorCode,int fonction)
 			default:break;
 		}
 	}
+=======
+
+	printf ("Code erreur : %d", errorCode);
+
+
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 }
 
 
