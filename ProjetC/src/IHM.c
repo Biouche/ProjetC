@@ -168,7 +168,7 @@ void IHM(void)
 			//PrintError(errorCode,8);
 			//printf("requestSelect:<%s>\n",requestSelect);
 			errorCode=AlterTable(requestSelect);
-			PrintError(errorCode,2);
+			PrintError(errorCode,8);
 		}
 		else
 		{

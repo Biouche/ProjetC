@@ -184,10 +184,11 @@ int ExecuteAddColumn(char* nomTable,char* nomCol,char* type,int taille)
 	 //Si premier ajout de colonne
 	 if (nbColonne==0)
 	 {
-
+		 printf("SALUT");
 		 fseek (ficTable,0,SEEK_END);
 		 AjoutEspace(nomCol,31);
 		 fprintf(ficTable,"%s|0|%s|%d|", nomCol,type,taille);
+		 fclose(ficTable);
 	 }
 	 else
 	 {
