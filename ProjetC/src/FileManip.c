@@ -83,14 +83,11 @@ int InsertInto (char *request)
 	memset(cheminTable,0,sizeof(char)*TAILLE_NOM_TABLE);
 	strcpy(cheminTable, "./Tables/");
 	strcat(request,".dbf");
-<<<<<<< HEAD
 	
 	strcat (cheminTable,request);
 	char nomColonne[TAILLE_NOM_TABLE];
 	memset(nomColonne,0,sizeof(char)*TAILLE_NOM_TABLE);
-=======
 	strcat (cheminTable,request);
->>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 	char*buffer=NULL;
 	buffer=malloc(50);
 	memset(buffer,0,50);
@@ -99,7 +96,6 @@ int InsertInto (char *request)
 
 	FILE * ficTable = NULL;
 
-<<<<<<< HEAD
 		//Test de l'existence du fichier
 		if ((ficTable=fopen(cheminTable,"r+"))==NULL)
 		{
@@ -122,6 +118,7 @@ int InsertInto (char *request)
 			fseek(ficTable,22,SEEK_SET);	//recupération nom 1ere colonne
 			fgets(nomColonne,31,ficTable);
 			printf("<%s>",nomColonne);
+			int i=0;
 			for(i=1;i<nbColonne;i++)		//recupération nom autres colonnes
 			{
 				fseek(ficTable,-31,SEEK_SET);
@@ -130,7 +127,6 @@ int InsertInto (char *request)
 				printf("<%s>",nomColonne);
 			}
 		}
-=======
 	//Test de l'existence du fichier
 	if ((ficTable=fopen(cheminTable,"r+"))==NULL)
 	{
@@ -142,9 +138,6 @@ int InsertInto (char *request)
 	printf("<%s>\n",buffer);
 	nbColonne=atoi(buffer);
 	printf("<%d>\n",nbColonne);
->>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
-
-<<<<<<< HEAD
 		nbRecord = nbRecord + 1; //incrémentation nbColonne
 		if(nbColonne >= 100)
 		{
@@ -162,8 +155,6 @@ int InsertInto (char *request)
 			fprintf(ficTable,"00%d",nbColonne);
 		}
 		fclose(ficTable);
-=======
->>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 	return 1;
 }
 
