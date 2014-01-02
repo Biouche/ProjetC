@@ -184,6 +184,7 @@ int ExecuteAddColumn(char* nomTable,char* nomCol,char* type,int taille)
 	 //Si premier ajout de colonne
 	 if (nbColonne==0)
 	 {
+		 //AJOUTER 38 AU LENGTH HEADER
 		 printf("SALUT");
 		 fseek (ficTable,0,SEEK_END);
 		 AjoutEspace(nomCol,31);
@@ -192,7 +193,18 @@ int ExecuteAddColumn(char* nomTable,char* nomCol,char* type,int taille)
 	 }
 	 else
 	 {
-	 //On vérifie que la colonne n'existe pas
+		 //On vérifie que la colonne n'existe pas
+		 fseek (ficTable,5,SEEK_SET);
+		 int i=0;
+		 while (i<nbColonne)
+		 {
+			 fgets(buffer,31,ficTable);
+			 if (strcmp(buffer,nomCol)==0)
+				 return -5;
+			 fseek (ficTable,8,SEEK_SET);
+		 }
+
+
 	 }
 
 	return 0;
