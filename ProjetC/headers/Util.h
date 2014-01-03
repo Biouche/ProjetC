@@ -10,5 +10,5 @@
 
 void AjouterEspace (char*,int);
 void CompleterEspace (char*,int);
-
+int TestType (char*,char*);
 #endif /* UTIL_H_ */

@@ -81,3 +81,58 @@ int AlterTable (char * request)
 	}
 	return errorCode;
 }
+
+int Delete (char * request)
+{
+	int errorCode = 0;
+	char*buffer=NULL;
+	buffer=malloc(TAILLE_BUFFER);
+	memset(buffer,0,TAILLE_BUFFER);
+
+	char * nomTable=NULL;
+	nomTable=malloc(TAILLE_NOM_TABLE);
+	char * nomCol=NULL;
+	nomCol=malloc(MAX_COL_NAME);
+	char* operateur=NULL;
+	operateur=malloc(1);
+	char * valeur=NULL;
+	valeur=malloc(TAILLE_BUFFER);
+
+	//Vérification du mot FROM
+	buffer=strtok(request," ");
+	printf("from : <%s>\n",buffer);
+	if(strcmp(buffer,"FROM")!=0)
+		return 1;
+
+	//Récupération du nom de la table
+	buffer=strtok(NULL," ");
+	strcpy(nomTable,buffer);
+	printf("nom_table : <%s>\n",nomTable);
+
+	//Vérification du mot WHERE
+	buffer=strtok(NULL," ");
+	if(strcmp(buffer,"WHERE")!=0)
+	printf("where : <%s>\n",buffer);
+
+	//Récupération du nom de la colonne
+	buffer=strtok(NULL," ");
+	strcpy(nomCol,buffer);
+	printf("nomCol : <%s>\n",nomCol);
+
+	//Récupération et vérification de l'opérateur
+	buffer=strtok(NULL," ");
+	if(strcmp(buffer,"<")!=0 || strcmp(buffer,">")!=0 || strcmp(buffer,"<>")!=0 || strcmp(buffer,"=")==0)
+		strcpy(operateur,buffer);
+	else
+		return 1;
+	printf("opérateur : <%s>\n",operateur);
+
+	//Récupération de la valeur
+	buffer=strtok(NULL," ");
+	strcpy(valeur,buffer);
+	printf("valeur : <%s>\n",valeur);
+
+	errorCode=ExecuteDelete(nomTable,nomCol,operateur,valeur);
+
+	return errorCode;
+}

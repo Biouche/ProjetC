@@ -180,32 +180,27 @@ int ExecuteAddColumn(char* nomTable, char* nomCol, char* type, int taille) {
 	//Si premier ajout de colonne
 	if (nbColonne == 0) {
 		//On se repositionne au niveau de nbCol
-		rewind(ficTable);
-		fseek(ficTable, NB_COL, SEEK_CUR);
+		fseek(ficTable, NB_COL, SEEK_SET);
 		//On incrémente nbCol de 1
 		fprintf(ficTable, "0%d", nbColonne + 1);
 
 		//On se déplace dans l'entête du fichier jusqu'à lengthHeader
-		rewind(ficTable);
-		fseek(ficTable, LENGTH_HEADER, SEEK_CUR);
+		fseek(ficTable, LENGTH_HEADER, SEEK_SET);
 		int lengthHeader = 0;
 		//On récupère lengthHeader
 		if (fgets(buffer, 4, ficTable) == NULL)
 			return 1;
 		lengthHeader = atoi(buffer);
 		//On se replace au niveau du lengthHeader
-		rewind(ficTable);
-		fseek(ficTable, LENGTH_HEADER, SEEK_CUR);
+		fseek(ficTable, LENGTH_HEADER, SEEK_SET);
 		//On incrémente le lengthHeader de 38
 		fprintf(ficTable, "0%d", lengthHeader + 38);
 
 		//On se déplace jusqu'à nbRecord
-		rewind(ficTable);
-		fseek(ficTable, NB_RECORD, SEEK_CUR);
+		fseek(ficTable, NB_RECORD, SEEK_SET);
 		fprintf(ficTable, "001");
 		//On se déplace dans l'entête du fichier jusqu'à lengthRecord
-		rewind(ficTable);
-		fseek(ficTable, LENGTH_RECORD, SEEK_CUR);
+		fseek(ficTable, LENGTH_RECORD, SEEK_SET);
 		//On lui affecte sa première valeur et on l'écrit dans le fichier
 		int lengthRecord = 7 + taille;
 		printf("lengthRecord : <%d>", lengthRecord);
@@ -224,16 +219,14 @@ int ExecuteAddColumn(char* nomTable, char* nomCol, char* type, int taille) {
 		fprintf(ficTable, "|");
 		fclose(ficTable);
 	} else {
-		rewind(ficTable);
 		//On récupère nbRecord
-		fseek(ficTable, NB_RECORD, SEEK_CUR);
+		fseek(ficTable, NB_RECORD, SEEK_SET);
 		int nbRecord = 0;
 		if (fgets(buffer, 4, ficTable) == NULL)
 			return 1;
 		nbRecord = atoi(buffer);
 		//On se replace au début du columnDescription
-		rewind(ficTable);
-		fseek(ficTable, COLUMN_DESCRIPTION, SEEK_CUR);
+		fseek(ficTable, COLUMN_DESCRIPTION, SEEK_SET);
 		//On vérifie que la colonne n'existe pas
 		int i = 0;
 		CompleterEspace(nomCol, MAX_COL_NAME);
@@ -252,8 +245,7 @@ int ExecuteAddColumn(char* nomTable, char* nomCol, char* type, int taille) {
 		if (nbColonne == 10)
 			return -3;
 		//On se repositionne au niveau de nbCol
-		rewind(ficTable);
-		fseek(ficTable, NB_COL, SEEK_CUR);
+		fseek(ficTable, NB_COL, SEEK_SET);
 		//On incrémente nbCol de 1
 		if (nbColonne == 9)
 			fprintf(ficTable, "%d", nbColonne + 1);
@@ -261,8 +253,7 @@ int ExecuteAddColumn(char* nomTable, char* nomCol, char* type, int taille) {
 			fprintf(ficTable, "0%d", nbColonne + 1);
 
 		//On se déplace dans l'entête du fichier jusqu'à lengthRecord
-		rewind(ficTable);
-		fseek(ficTable, LENGTH_RECORD, SEEK_CUR);
+		fseek(ficTable, LENGTH_RECORD, SEEK_SET);
 		int lengthRecord = 0;
 		//On récupère lengthRecord
 		if (fgets(buffer, 4, ficTable) == NULL)
@@ -271,8 +262,7 @@ int ExecuteAddColumn(char* nomTable, char* nomCol, char* type, int taille) {
 		int newLengthRecord = 0;
 		newLengthRecord = lengthRecord + (taille + 1);
 		////On se replace au début de lengthRecord
-		rewind(ficTable);
-		fseek(ficTable, LENGTH_RECORD, SEEK_CUR);
+		fseek(ficTable, LENGTH_RECORD, SEEK_SET);
 		//On lui ajoute [tailleType+1]
 		if (newLengthRecord >= 99)
 			fprintf(ficTable, "%d", newLengthRecord);
@@ -282,16 +272,14 @@ int ExecuteAddColumn(char* nomTable, char* nomCol, char* type, int taille) {
 			fprintf(ficTable, "00%d", newLengthRecord);
 
 		//On se déplace dans l'entête du fichier jusqu'à lengthHeader
-		rewind(ficTable);
-		fseek(ficTable, LENGTH_HEADER, SEEK_CUR);
+		fseek(ficTable, LENGTH_HEADER, SEEK_SET);
 		int lengthHeader = 0;
 		//On récupère lengthHeader
 		if (fgets(buffer, 4, ficTable) == NULL)
 			return 1;
 		lengthHeader = atoi(buffer);
 		//On se replace au niveau du lengthHeader
-		rewind(ficTable);
-		fseek(ficTable, LENGTH_HEADER, SEEK_CUR);
+		fseek(ficTable, LENGTH_HEADER, SEEK_SET);
 		//On incrémente le lengthHeader de 38
 		if (lengthHeader >= 62)
 			fprintf(ficTable, "%d", lengthHeader + 38);
@@ -317,7 +305,6 @@ int ExecuteAddColumn(char* nomTable, char* nomCol, char* type, int taille) {
 		fprintf(ficNewTable, "|%s|%d|%s|%d|", nomCol, nbColonne, type, taille);
 		//On récupère chaque enregistrement et on lui ajoute la nouvelle colonne vide
 		fseek(ficTable, 1, SEEK_CUR);
-		//fprintf(ficNewTable, "|");
 		for (i = 0; i < nbRecord; ++i) {
 			if (fgets(header, lengthRecord + 1, ficTable) == NULL)
 				return 1;
@@ -337,5 +324,73 @@ int ExecuteAddColumn(char* nomTable, char* nomCol, char* type, int taille) {
 		rename("./Tables/tmp_alter_table", nomTable);
 		fclose(ficNewTable);
 	}
+	return 0;
+}
+
+int ExecuteDelete(char* nomTable,char* nomCol,char* operateur,char* valeur)
+{
+	char cheminTable[TAILLE_NOM_TABLE];
+	memset(cheminTable, 0, sizeof(char) * TAILLE_NOM_TABLE);
+	strcpy(cheminTable, "./Tables/");
+	strcat(nomTable, ".dbf");
+	strcat(cheminTable, nomTable);
+	char*buffer = NULL;
+	buffer = malloc(TAILLE_BUFFER);
+	memset(buffer, 0, TAILLE_BUFFER);
+	FILE * ficTable = NULL;
+
+	//Test de l'existence du fichier
+	if ((ficTable = fopen(cheminTable, "r+")) == NULL)
+		return -1;
+
+	//On se déplace dans l'entête du fichier jusqu'à nbRecord
+	fseek(ficTable, NB_RECORD, SEEK_SET);
+	//On récupère nbRecord
+	int nbRecord = 0;
+	if (fgets(buffer, 4, ficTable) == NULL)
+		return 10;
+	nbRecord = atoi(buffer);
+	//On se déplace dans l'entête du fichier jusqu'à lengthHeader
+	fseek(ficTable, LENGTH_HEADER, SEEK_SET);
+	//On récupère lengthHeader
+	int lengthHeader = 0;
+	if (fgets(buffer, 4, ficTable) == NULL)
+		return 10;
+	lengthHeader = atoi(buffer);
+	//On se déplace dans l'entête du fichier jusqu'à nbCol
+	fseek(ficTable, NB_COL, SEEK_SET);
+	//On récupère nbCol
+	int nbColonne = 0;
+	if (fgets(buffer, 3, ficTable) == NULL)
+		return 10;
+	nbColonne = atoi(buffer);
+	//On se déplace dans l'entête du fichier jusqu'à lengthRecord
+	fseek(ficTable, LENGTH_RECORD, SEEK_SET);
+	//On récupère lengthRecord
+	int lengthRecord = 0;
+	if (fgets(buffer, 3, ficTable) == NULL)
+		return 10;
+	lengthRecord = atoi(buffer);
+
+	//On vérifie que la colonne existe
+	int i,same = 0;
+	CompleterEspace(nomCol, MAX_COL_NAME);
+	while (i < nbColonne) {
+		if (fgets(buffer, MAX_COL_NAME + 1, ficTable) == NULL)
+			return 10;
+		//On compare les deux chaines
+		if (strcmp(buffer, nomCol) == 0)
+			same=1;
+		else
+			same=0;
+		//On se positionne au début de la prochaine colonne
+		fseek(ficTable, 7, SEEK_CUR);
+		++i;
+	}
+	if(same==0)
+		return -2;
+	//TESTER TYPE
+	TestType(valeur,);
+
 	return 0;
 }
