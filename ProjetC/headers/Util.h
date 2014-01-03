@@ -8,7 +8,7 @@
 #ifndef UTIL_H_
 #define UTIL_H_
 
-void AjoutEspace (char*,int);
-
+void AjouterEspace (char*,int);
+void CompleterEspace (char*,int);
 
 #endif /* UTIL_H_ */

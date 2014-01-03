@@ -86,8 +86,8 @@ void IHM(void)
 		if(strcmp(buffer,"INTO")==0)
 		{
 		buffer=strtok(NULL," ");
-		//errorCode=InsertInto(buffer);
-		//PrintError(errorCode,4);
+		errorCode=InsertInto(buffer);
+		PrintError(errorCode,4);
 		}
 		else
 		{
