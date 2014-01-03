@@ -51,7 +51,7 @@ void IHM(void)
 		if(strcmp(buffer,"TABLE")==0)
 		{
 		buffer=strtok(NULL," ");
-		//errorCode=DropTable(buffer);
+		errorCode=DropTable(buffer);
 		PrintError(errorCode,2);
 		}
 		else
@@ -73,6 +73,7 @@ void IHM(void)
 			//printf("requestSelect[%d]:<%s>\n",i,requestSelect);
 			strcat(requestSelect," ");
 			//printf("requestSelect[%d]:<%s>\n",i,requestSelect);
+
 		}
 		buffer=strtok(NULL," ");
 		strcat(requestSelect,buffer);
@@ -86,8 +87,8 @@ void IHM(void)
 		if(strcmp(buffer,"INTO")==0)
 		{
 		buffer=strtok(NULL," ");
-		//errorCode=InsertInto(buffer);
-		//PrintError(errorCode,4);
+		errorCode=InsertInto(buffer);
+		PrintError(errorCode,4);
 		}
 		else
 		{
@@ -95,27 +96,33 @@ void IHM(void)
 		}
 		//recuperation du nom de la table dans le buffer
 
-		//errorCode=InsertInto(buffer);
+		errorCode=InsertInto(buffer);
 	}
 	else if(strcmp(buffer,"DELETE")==0)
 	{
 		char requestSelect[TAILLE_REQUEST];
 		memset(requestSelect,0,sizeof(char)*TAILLE_REQUEST);
 		int i=0;
-		for(i=0;i<5;i++)
+		for(i=0;i<6;i++)
 		{
 			buffer=strtok(NULL," ");
-			//printf("buffer[%d]:<%s>\n",i,buffer);
+			printf("buffer[%d]:<%s>\n",i,buffer);
+			if (buffer==NULL)
+			{
+				PrintError(1,5);
+				IHM();
+			}
 			strcat(requestSelect,buffer);
 			//printf("requestSelect[%d]:<%s>\n",i,requestSelect);
 			strcat(requestSelect," ");
 			//printf("requestSelect[%d]:<%s>\n",i,requestSelect);
+
 		}
 		buffer=strtok(NULL," ");
 		strcat(requestSelect,buffer);
-		//errorCode=Delete(resquetSelect);
+		errorCode=Delete(requestSelect);
 
-		//PrintError(errorCode,5);
+		PrintError(errorCode,5);
 
 	}
 	else if(strcmp(buffer,"INDEX")==0)
@@ -168,7 +175,7 @@ void IHM(void)
 			//PrintError(errorCode,8);
 			//printf("requestSelect:<%s>\n",requestSelect);
 			errorCode=AlterTable(requestSelect);
-			PrintError(errorCode,2);
+			PrintError(errorCode,8);
 		}
 		else
 		{
@@ -312,6 +319,8 @@ void PrintError(int errorCode,int fonction)
 	{
 		switch(errorCode)
 		{
+			case 1:printf("Erreur de syntaxe\n\n");
+						   break;
 			case -1:printf("La table est inexistante\n\n");
 							   break;
 			case -2:printf("Le nom de colonne est inexistant\n\n");

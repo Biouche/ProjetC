@@ -13,5 +13,6 @@ int CreateTable(char*);
 int ExecuteAddColumn(char*,char*,char*,int);
 int DropTable (char*);
 int InsertInto (char *);
+int ExecuteDelete(char*,char*,char*,char*);
 
 #endif /* FILEMANIP_H_ */

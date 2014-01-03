@@ -9,14 +9,8 @@
 #ifndef REQUESTPARSE_H_
 #define REQUESTPARSE_H_
 
-int ParseSELECT (char *);
-
-int ParseINSERT (char *);
-
-int ParseUPDATE (char *);
+int Delete (char*);
 
 int AlterTable (char *);
-
-
 
 #endif /* REQUESTPARSE_H_ */
