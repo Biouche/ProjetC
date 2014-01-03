@@ -87,13 +87,17 @@ int InsertInto(char *request) {
 	char cheminTable[TAILLE_NOM_TABLE];
 	memset(cheminTable, 0, sizeof(char) * TAILLE_NOM_TABLE);
 	strcpy(cheminTable, "./Tables/");
+<<<<<<< HEAD
 	strcat(request,".dbf");
 	
 	strcat (cheminTable,request);
+=======
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 	strcat(request, ".dbf");
 
 	strcat(cheminTable, request);
 	char nomColonne[TAILLE_NOM_TABLE];
+<<<<<<< HEAD
 	memset(nomColonne,0,sizeof(char)*TAILLE_NOM_TABLE);
 	char tailleColonne[TAILLE_NOM_TABLE];
 	memset(tailleColonne,0,sizeof(char)*TAILLE_NOM_TABLE);
@@ -116,10 +120,20 @@ int InsertInto(char *request) {
 	int tailleColonneNum = 0;
 	int tmp = 0;
 	int j=0;
+=======
+	memset(nomColonne, 0, sizeof(char) * TAILLE_NOM_TABLE);
+	strcat(cheminTable, request);
+	char*buffer = NULL;
+	buffer = malloc(50);
+	memset(buffer, 0, 50);
+	int nbColonne = 0;
+	int nbRecord = 0;
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 
 	FILE * ficTable = NULL;
 	FILE * fictmp = NULL;
 
+<<<<<<< HEAD
 		//Test de l'existence du fichier
 		if ((ficTable=fopen(cheminTable,"r+"))==NULL)
 		{
@@ -194,6 +208,36 @@ int InsertInto(char *request) {
 		{
 			fseek(ficTable,7,SEEK_SET);
 			fprintf(ficTable,"%d",nbRecord);
+=======
+	//Test de l'existence du fichier
+	if ((ficTable = fopen(cheminTable, "r+")) == NULL) {
+		printf("return");
+		return 0;
+	}
+	fseek(ficTable, 15, SEEK_SET); //Déplacement à NbColonne
+	fgets(buffer, 3, ficTable);  //Récupération NbColonne
+	printf("<%s>\n", buffer);
+	nbColonne = atoi(buffer);		//Convertion NbColonne en int
+	printf("<%d>\n", nbColonne);
+	fseek(ficTable, 7, SEEK_CUR); //Déplacement à nbRecord
+	fgets(buffer, 4, ficTable);  //Récupération nbRecord
+	printf("<%s>\n", buffer);
+	nbRecord = atoi(buffer);		//Convertion nbRecord en int
+	printf("<%d>\n", nbRecord);
+	if (nbColonne >= 1) {
+		fseek(ficTable, 0, SEEK_CUR);
+		fseek(ficTable, 22, SEEK_CUR);	//recupération nom 1ere colonne
+		fgets(nomColonne, 31, ficTable);
+		printf("<%s>", nomColonne);
+		int i = 0;
+		for (i = 1; i < nbColonne; i++)		//recupération nom autres colonnes
+				{
+			fseek(ficTable, -31, SEEK_CUR);
+			fseek(ficTable, 39, SEEK_CUR);
+			fgets(nomColonne, 31, ficTable);
+			printf("<%s>", nomColonne);
+		}
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 	}
 	//Test de l'existence du fichier
 	if ((ficTable = fopen(cheminTable, "r+")) == NULL) {
@@ -334,6 +378,7 @@ int ExecuteAddColumn(char* nomTable, char* nomCol, char* type, int taille) {
 		else if (newLengthRecord >= 9)
 			fprintf(ficTable, "0%d", newLengthRecord);
 		else
+<<<<<<< HEAD
 		{
 			fseek(ficTable,7,SEEK_SET);
 			fprintf(ficTable,"00%d",nbRecord);
@@ -390,6 +435,59 @@ int ExecuteAddColumn(char* nomTable, char* nomCol, char* type, int taille) {
 		fclose(ficTable);
 		fclose(fictmp);
 	return 1;
+=======
+			fprintf(ficTable, "00%d", newLengthRecord);
+
+		//On se déplace dans l'entête du fichier jusqu'à lengthHeader
+		fseek(ficTable, LENGTH_HEADER, SEEK_SET);
+		int lengthHeader = 0;
+		//On récupère lengthHeader
+		if (fgets(buffer, 4, ficTable) == NULL)
+			return 1;
+		lengthHeader = atoi(buffer);
+		//On se replace au niveau du lengthHeader
+		fseek(ficTable, LENGTH_HEADER, SEEK_SET);
+		//On incrémente le lengthHeader de 38
+		if (lengthHeader >= 62)
+			fprintf(ficTable, "%d", lengthHeader + 38);
+		else
+			fprintf(ficTable, "0%d", lengthHeader + 38);
+
+		//On se replace au début du fichier
+		rewind(ficTable);
+
+		//On crée et on ouvre un nouveau fichier pour la table
+		FILE * ficNewTable = NULL;
+		ficNewTable = fopen("./Tables/tmp_alter_table", "w+");
+		//On récupère tout le header
+		char*header = NULL;
+		header = malloc(TAILLE_HEADER_MAX);
+		memset(header, 0, TAILLE_HEADER_MAX);
+		if (fgets(header, lengthHeader, ficTable) == NULL)
+			return 1;
+		//On l'écrit dans le nouveau fichier
+		fprintf(ficNewTable, "%s", header);
+		CompleterEspace(nomCol, 31);
+		//On ajoute la nouvelle colonne dans le nouveau fichier
+		fprintf(ficNewTable, "|%s|%d|%s|%d|", nomCol, nbColonne, type, taille);
+		//On récupère chaque enregistrement et on lui ajoute la nouvelle colonne vide
+		fseek(ficTable, 1, SEEK_CUR);
+		for (i = 0; i < nbRecord; ++i) {
+			if (fgets(header, lengthRecord + 1, ficTable) == NULL)
+				return 1;
+			fprintf(ficNewTable, "%s", header);
+
+			int j = 0;
+			while (j < taille) {
+				fprintf(ficNewTable, " ");
+				++j;
+			}
+			fprintf(ficNewTable, "|");
+			fseek(ficTable, 1, SEEK_CUR);
+		}
+		//On supprime l"'ancien fichier en on renomme le nouveau
+		fclose(ficTable);
+>>>>>>> branch 'master' of https://github.com/Biouche/ProjetC.git
 		remove(nomTable);
 		rename("./Tables/tmp_alter_table", nomTable);
 		fclose(ficNewTable);
